@@ -1,0 +1,36 @@
+version: '3'
+
+services:
+###> doctrine/doctrine-bundle ###
+  database:
+    image: mysql
+    command: --default-authentication-plugin=mysql_native_password
+    restart: always
+    ports: [3306]
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: testDbHedi
+      # You may use a bind-mounted host directory instead, so that it is harder to accidentally remove the volume and lose all your data!
+      # - ./docker/db/data:/var/lib/postgresql/data:rw
+###< doctrine/doctrine-bundle ###
+  phpmyadmin:
+    image: phpmyadmin
+    restart: always
+    ports:
+      - 8180:80
+    depends_on:
+    - database
+    environment:
+      - PMA_ARBITRARY=1
+
+  php-fpm:
+    build: ./
+    ports:
+      - 5000:8000
+    volumes:
+      - ./:/var/www/html
+
+volumes:
+###> doctrine/doctrine-bundle ###
+  db-data:
+###< doctrine/doctrine-bundle ###
