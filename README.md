@@ -3,21 +3,21 @@
 cd /project-name
 
 
-- Lancer docker :
+-Lancer docker :
 docker-compose up -d
 
-- Récupérer l'id du container php :
+-Récupérer l'id du container php :
 docker ps
 
-- Merci de pointer vers le container :
+-Merci de pointer vers le container :
 
 docker exec -it id_container_php bash
 
-- Lancer symfony en arrière :
+-Lancer symfony en arrière :
 
 symfony server:start -d
 
-- Créer la base de donnée :
+-Créer la base de donnée :
 
 php bin/console doctrine:database:create
 php bin/console make:migration
